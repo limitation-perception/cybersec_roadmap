@@ -157,3 +157,4 @@
 
 - **Response:** `204 No Content`, `404 Not Found`
 
+![Схема бази даних](db-schema.png)
