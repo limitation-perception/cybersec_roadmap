@@ -4,6 +4,80 @@
 
 **cyberoad** це roadmap для підготовки до ctf-змагань, на кожну категорію має типи завдань і до кожного типу містить посилання на статті / відео на ютубі щоб вивчити цю тему. 
 
+## Як запустити проєкт
+
+Потрібен Python 3.12 або новіший.
+
+1. Склонуйте репозиторій і перейдіть у теку:
+
+   ```bash
+   git clone https://github.com/limitation-perception/cybersec_roadmap.git
+   cd cybersec_roadmap
+   ```
+
+2. Створіть віртуальне оточення і встановіть залежності:
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+3. Застосуйте міграції:
+
+   ```bash
+   python manage.py migrate
+   ```
+
+4. Запустіть сервер:
+
+   ```bash
+   python manage.py runserver
+   ```
+
+API буде доступне за адресою http://127.0.0.1:8000.
+
+Фронтенд лежить в окремому репозиторії [cyberoad_front](https://github.com/limitation-perception/cyberoad_front) і запускається на http://localhost:5173. CORS на бекенді дозволяє запити з `http://localhost:5173` і `http://127.0.0.1:5173`.
+
+## Postman
+
+Колекція з усіма ендпоінтами лежить у [postman/cyberoad.postman_collection.json](postman/cyberoad.postman_collection.json) (формат Collection v2.1).
+
+- Імпортуйте її в Postman: **Import** → оберіть файл.
+- Адреса сервера задана в змінній колекції `{{base_url}}` (за замовчуванням `http://127.0.0.1:8000`).
+- Запускайте папки по черзі або всю колекцію через **Run collection**: запити на створення зберігають `id` у змінні `category_id`, `task_type_id` і `resource_id`.
+- Папка **Errors** містить запити, що повертають помилки `400`, `404` і `409`.
+
+## Формат помилок
+
+Усі помилки повертаються в однаковому форматі з ключем `detail`.
+
+Невалідні дані (`400 Bad Request`), помилки по кожному полю в `errors`:
+
+```json
+{
+  "detail": "Invalid data.",
+  "errors": {
+    "url": ["Enter a valid URL."],
+    "type": ["\"podcast\" is not a valid choice."]
+  }
+}
+```
+
+Об'єкт не знайдено (`404 Not Found`):
+
+```json
+{ "detail": "No Category matches the given query." }
+```
+
+Видалення, яке порушує зв'язки (`409 Conflict`). Категорію не можна видалити, поки в ній є типи завдань, а тип завдання, поки до нього прив'язані ресурси:
+
+```json
+{ "detail": "Cannot delete category: it has 3 task type(s). Delete them first." }
+```
+
+Чому `409`: сам запит коректний і об'єкт існує, але видалення конфліктує з поточним станом даних, бо до об'єкта прив'язані інші записи.
+
 ## Ендпоінти
 
 #### `GET /categories` - список усіх категорій
@@ -180,5 +254,7 @@
 #### `DELETE /resources/{id}` - видалити ресурс
 
 - **Response:** `204 No Content`, `404 Not Found`
+
+## Схема бази даних
 
 ![Схема бази даних](db-schema.png)
