@@ -1,8 +1,11 @@
 {
   "info": {
+    "_postman_id": "8e820857-d786-4278-a7de-8880672eac27",
     "name": "cyberoad",
     "description": "REST API cyberoad: категорії, типи завдань і матеріали для підготовки до CTF. Запускайте папки по черзі (Run collection): запити на створення зберігають id у змінні колекції.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55863297",
+    "_collection_link": "https://go.postman.co/collection/55863297-8e820857-d786-4278-a7de-8880672eac27?source=collection_link"
   },
   "item": [
     {
@@ -14,33 +17,20 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 201\", function () {",
                   "    pm.response.to.have.status(201);",
                   "});",
                   "pm.collectionVariables.set(\"category_id\", pm.response.json().id);"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/categories",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "categories"
-              ]
-            },
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"name\": \"Web\",\n    \"description\": \"Вразливості вебзастосунків\"\n}",
@@ -49,6 +39,15 @@
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
             }
           },
           "response": [
@@ -56,21 +55,7 @@
               "name": "201 Created",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/categories",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "categories"
-                  ]
-                },
+                "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"name\": \"Web\",\n    \"description\": \"Вразливості вебзастосунків\"\n}",
@@ -79,18 +64,64 @@
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "89"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"name\": \"Web\",\n    \"description\": \"Вразливості вебзастосунків\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"name\": \"Web\",\n    \"description\": \"Вразливості вебзастосунків\"\n}"
             }
           ]
         },
@@ -100,12 +131,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -140,14 +172,51 @@
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "91"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Web\",\n        \"description\": \"Вразливості вебзастосунків\"\n    }\n]",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Web\",\n        \"description\": \"Вразливості вебзастосунків\"\n    }\n]"
             }
           ]
         },
@@ -157,12 +226,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -199,14 +269,51 @@
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "89"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"name\": \"Web\",\n    \"description\": \"Вразливості вебзастосунків\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"name\": \"Web\",\n    \"description\": \"Вразливості вебзастосунків\"\n}"
             }
           ]
         },
@@ -216,23 +323,28 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Web\",\n    \"description\": \"Новий опис\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
               }
-            ],
+            },
             "url": {
               "raw": "{{base_url}}/categories/{{category_id}}",
               "host": [
@@ -242,15 +354,6 @@
                 "categories",
                 "{{category_id}}"
               ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Web\",\n    \"description\": \"Новий опис\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
             }
           },
           "response": [
@@ -258,12 +361,16 @@
               "name": "200 OK",
               "originalRequest": {
                 "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Web\",\n    \"description\": \"Новий опис\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
                   }
-                ],
+                },
                 "url": {
                   "raw": "{{base_url}}/categories/{{category_id}}",
                   "host": [
@@ -273,27 +380,55 @@
                     "categories",
                     "{{category_id}}"
                   ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"name\": \"Web\",\n    \"description\": \"Новий опис\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "57"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"name\": \"Web\",\n    \"description\": \"Новий опис\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"name\": \"Web\",\n    \"description\": \"Новий опис\"\n}"
             }
           ]
         }
@@ -308,33 +443,20 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 201\", function () {",
                   "    pm.response.to.have.status(201);",
                   "});",
                   "pm.collectionVariables.set(\"task_type_id\", pm.response.json().id);"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/task-types",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "task-types"
-              ]
-            },
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"category\": {{category_id}},\n    \"name\": \"SQL Injection\",\n    \"description\": \"Впровадження SQL-коду в запит\"\n}",
@@ -343,6 +465,15 @@
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{base_url}}/task-types",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "task-types"
+              ]
             }
           },
           "response": [
@@ -350,21 +481,7 @@
               "name": "201 Created",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/task-types",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "task-types"
-                  ]
-                },
+                "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"category\": {{category_id}},\n    \"name\": \"SQL Injection\",\n    \"description\": \"Впровадження SQL-коду в запит\"\n}",
@@ -373,18 +490,64 @@
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{base_url}}/task-types",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "task-types"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "112"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"category\": 1,\n    \"name\": \"SQL Injection\",\n    \"description\": \"Впровадження SQL-коду в запит\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"category\": 1,\n    \"name\": \"SQL Injection\",\n    \"description\": \"Впровадження SQL-коду в запит\"\n}"
             }
           ]
         },
@@ -394,12 +557,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -434,14 +598,51 @@
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "114"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "[\n    {\n        \"id\": 1,\n        \"category\": 1,\n        \"name\": \"SQL Injection\",\n        \"description\": \"Впровадження SQL-коду в запит\"\n    }\n]",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"category\": 1,\n        \"name\": \"SQL Injection\",\n        \"description\": \"Впровадження SQL-коду в запит\"\n    }\n]"
             }
           ]
         },
@@ -451,12 +652,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -493,14 +695,51 @@
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "112"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"category\": 1,\n    \"name\": \"SQL Injection\",\n    \"description\": \"Впровадження SQL-коду в запит\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"category\": 1,\n    \"name\": \"SQL Injection\",\n    \"description\": \"Впровадження SQL-коду в запит\"\n}"
             }
           ]
         },
@@ -510,23 +749,28 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"category\": {{category_id}},\n    \"name\": \"SQL Injection\",\n    \"description\": \"Новий опис\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
               }
-            ],
+            },
             "url": {
               "raw": "{{base_url}}/task-types/{{task_type_id}}",
               "host": [
@@ -536,15 +780,6 @@
                 "task-types",
                 "{{task_type_id}}"
               ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"category\": {{category_id}},\n    \"name\": \"SQL Injection\",\n    \"description\": \"Новий опис\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
             }
           },
           "response": [
@@ -552,12 +787,16 @@
               "name": "200 OK",
               "originalRequest": {
                 "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"category\": {{category_id}},\n    \"name\": \"SQL Injection\",\n    \"description\": \"Новий опис\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
                   }
-                ],
+                },
                 "url": {
                   "raw": "{{base_url}}/task-types/{{task_type_id}}",
                   "host": [
@@ -567,27 +806,55 @@
                     "task-types",
                     "{{task_type_id}}"
                   ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"category\": {{category_id}},\n    \"name\": \"SQL Injection\",\n    \"description\": \"Новий опис\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "80"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"category\": 1,\n    \"name\": \"SQL Injection\",\n    \"description\": \"Новий опис\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"category\": 1,\n    \"name\": \"SQL Injection\",\n    \"description\": \"Новий опис\"\n}"
             }
           ]
         },
@@ -597,12 +864,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -641,14 +909,51 @@
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "82"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "[\n    {\n        \"id\": 1,\n        \"category\": 1,\n        \"name\": \"SQL Injection\",\n        \"description\": \"Новий опис\"\n    }\n]",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"category\": 1,\n        \"name\": \"SQL Injection\",\n        \"description\": \"Новий опис\"\n    }\n]"
             }
           ]
         }
@@ -663,33 +968,20 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 201\", function () {",
                   "    pm.response.to.have.status(201);",
                   "});",
                   "pm.collectionVariables.set(\"resource_id\", pm.response.json().id);"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/resources",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "resources"
-              ]
-            },
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
@@ -698,6 +990,15 @@
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{base_url}}/resources",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resources"
+              ]
             }
           },
           "response": [
@@ -705,21 +1006,7 @@
               "name": "201 Created",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/resources",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "resources"
-                  ]
-                },
+                "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
@@ -728,18 +1015,64 @@
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{base_url}}/resources",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "122"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"task_type\": 1,\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"task_type\": 1,\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}"
             }
           ]
         },
@@ -749,12 +1082,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -789,14 +1123,51 @@
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "124"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "[\n    {\n        \"id\": 1,\n        \"task_type\": 1,\n        \"title\": \"SQL injection\",\n        \"url\": \"https://portswigger.net/web-security/sql-injection\",\n        \"type\": \"article\"\n    }\n]",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"task_type\": 1,\n        \"title\": \"SQL injection\",\n        \"url\": \"https://portswigger.net/web-security/sql-injection\",\n        \"type\": \"article\"\n    }\n]"
             }
           ]
         },
@@ -806,12 +1177,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -848,14 +1220,51 @@
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "122"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"task_type\": 1,\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"task_type\": 1,\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}"
             }
           ]
         },
@@ -865,23 +1274,28 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection (PortSwigger)\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
               }
-            ],
+            },
             "url": {
               "raw": "{{base_url}}/resources/{{resource_id}}",
               "host": [
@@ -891,15 +1305,6 @@
                 "resources",
                 "{{resource_id}}"
               ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection (PortSwigger)\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
             }
           },
           "response": [
@@ -907,12 +1312,16 @@
               "name": "200 OK",
               "originalRequest": {
                 "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection (PortSwigger)\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
                   }
-                ],
+                },
                 "url": {
                   "raw": "{{base_url}}/resources/{{resource_id}}",
                   "host": [
@@ -922,27 +1331,55 @@
                     "resources",
                     "{{resource_id}}"
                   ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection (PortSwigger)\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "136"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"id\": 1,\n    \"task_type\": 1,\n    \"title\": \"SQL injection (PortSwigger)\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"task_type\": 1,\n    \"title\": \"SQL injection (PortSwigger)\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}"
             }
           ]
         },
@@ -952,12 +1389,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -996,14 +1434,51 @@
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "138"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "[\n    {\n        \"id\": 1,\n        \"task_type\": 1,\n        \"title\": \"SQL injection (PortSwigger)\",\n        \"url\": \"https://portswigger.net/web-security/sql-injection\",\n        \"type\": \"article\"\n    }\n]",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"task_type\": 1,\n        \"title\": \"SQL injection (PortSwigger)\",\n        \"url\": \"https://portswigger.net/web-security/sql-injection\",\n        \"type\": \"article\"\n    }\n]"
             }
           ]
         }
@@ -1018,32 +1493,19 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 400\", function () {",
                   "    pm.response.to.have.status(400);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/categories",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "categories"
-              ]
-            },
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"description\": \"Без назви\"\n}",
@@ -1052,6 +1514,15 @@
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
             }
           },
           "response": [
@@ -1059,21 +1530,7 @@
               "name": "400 Bad Request",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/categories",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "categories"
-                  ]
-                },
+                "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"description\": \"Без назви\"\n}",
@@ -1082,18 +1539,64 @@
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "72"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"name\": [\n            \"This field is required.\"\n        ]\n    }\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"name\": [\n            \"This field is required.\"\n        ]\n    }\n}"
             }
           ]
         },
@@ -1103,32 +1606,19 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 400\", function () {",
                   "    pm.response.to.have.status(400);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/categories",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "categories"
-              ]
-            },
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"name\": \"Web\",\n    \"description\": \"Вразливості вебзастосунків\"\n}",
@@ -1137,6 +1627,15 @@
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "categories"
+              ]
             }
           },
           "response": [
@@ -1144,21 +1643,7 @@
               "name": "400 Bad Request",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/categories",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "categories"
-                  ]
-                },
+                "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"name\": \"Web\",\n    \"description\": \"Вразливості вебзастосунків\"\n}",
@@ -1167,18 +1652,64 @@
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{base_url}}/categories",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "88"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"name\": [\n            \"category with this name already exists.\"\n        ]\n    }\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"name\": [\n            \"category with this name already exists.\"\n        ]\n    }\n}"
             }
           ]
         },
@@ -1188,32 +1719,19 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 400\", function () {",
                   "    pm.response.to.have.status(400);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/task-types",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "task-types"
-              ]
-            },
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"category\": {{category_id}},\n    \"name\": \"SQL Injection\",\n    \"description\": \"Впровадження SQL-коду в запит\"\n}",
@@ -1222,6 +1740,15 @@
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{base_url}}/task-types",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "task-types"
+              ]
             }
           },
           "response": [
@@ -1229,21 +1756,7 @@
               "name": "400 Bad Request",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/task-types",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "task-types"
-                  ]
-                },
+                "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"category\": {{category_id}},\n    \"name\": \"SQL Injection\",\n    \"description\": \"Впровадження SQL-коду в запит\"\n}",
@@ -1252,18 +1765,64 @@
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{base_url}}/task-types",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "task-types"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "110"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"non_field_errors\": [\n            \"The fields category, name must make a unique set.\"\n        ]\n    }\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"non_field_errors\": [\n            \"The fields category, name must make a unique set.\"\n        ]\n    }\n}"
             }
           ]
         },
@@ -1273,32 +1832,19 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 400\", function () {",
                   "    pm.response.to.have.status(400);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/task-types",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "task-types"
-              ]
-            },
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"category\": 999999,\n    \"name\": \"XSS\",\n    \"description\": \"\"\n}",
@@ -1307,6 +1853,15 @@
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{base_url}}/task-types",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "task-types"
+              ]
             }
           },
           "response": [
@@ -1314,21 +1869,7 @@
               "name": "400 Bad Request",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/task-types",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "task-types"
-                  ]
-                },
+                "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"category\": 999999,\n    \"name\": \"XSS\",\n    \"description\": \"\"\n}",
@@ -1337,18 +1878,64 @@
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{base_url}}/task-types",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "task-types"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "99"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"category\": [\n            \"Invalid pk \\\"999999\\\" - object does not exist.\"\n        ]\n    }\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"category\": [\n            \"Invalid pk \\\"999999\\\" - object does not exist.\"\n        ]\n    }\n}"
             }
           ]
         },
@@ -1358,32 +1945,19 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 400\", function () {",
                   "    pm.response.to.have.status(400);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{base_url}}/resources",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "resources"
-              ]
-            },
+            "header": [],
             "body": {
               "mode": "raw",
               "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"Bad\",\n    \"url\": \"not-a-url\",\n    \"type\": \"podcast\"\n}",
@@ -1392,6 +1966,15 @@
                   "language": "json"
                 }
               }
+            },
+            "url": {
+              "raw": "{{base_url}}/resources",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "resources"
+              ]
             }
           },
           "response": [
@@ -1399,21 +1982,7 @@
               "name": "400 Bad Request",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "url": {
-                  "raw": "{{base_url}}/resources",
-                  "host": [
-                    "{{base_url}}"
-                  ],
-                  "path": [
-                    "resources"
-                  ]
-                },
+                "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"Bad\",\n    \"url\": \"not-a-url\",\n    \"type\": \"podcast\"\n}",
@@ -1422,18 +1991,64 @@
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{base_url}}/resources",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "resources"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, POST, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "112"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"url\": [\n            \"Enter a valid URL.\"\n        ],\n        \"type\": [\n            \"\\\"podcast\\\" is not a valid choice.\"\n        ]\n    }\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Invalid data.\",\n    \"errors\": {\n        \"url\": [\n            \"Enter a valid URL.\"\n        ],\n        \"type\": [\n            \"\\\"podcast\\\" is not a valid choice.\"\n        ]\n    }\n}"
             }
           ]
         },
@@ -1443,12 +2058,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 404\", function () {",
                   "    pm.response.to.have.status(404);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -1485,14 +2101,51 @@
               },
               "status": "Not Found",
               "code": 404,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"No Category matches the given query.\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"No Category matches the given query.\"\n}"
             }
           ]
         },
@@ -1502,23 +2155,28 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 404\", function () {",
                   "    pm.response.to.have.status(404);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
           "request": {
             "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
               }
-            ],
+            },
             "url": {
               "raw": "{{base_url}}/resources/999999",
               "host": [
@@ -1528,15 +2186,6 @@
                 "resources",
                 "999999"
               ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
             }
           },
           "response": [
@@ -1544,12 +2193,16 @@
               "name": "404 Not Found",
               "originalRequest": {
                 "method": "PUT",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
                   }
-                ],
+                },
                 "url": {
                   "raw": "{{base_url}}/resources/999999",
                   "host": [
@@ -1559,27 +2212,55 @@
                     "resources",
                     "999999"
                   ]
-                },
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"task_type\": {{task_type_id}},\n    \"title\": \"SQL injection\",\n    \"url\": \"https://portswigger.net/web-security/sql-injection\",\n    \"type\": \"article\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "status": "Not Found",
               "code": 404,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "49"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"No Resource matches the given query.\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"No Resource matches the given query.\"\n}"
             }
           ]
         },
@@ -1589,12 +2270,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 409\", function () {",
                   "    pm.response.to.have.status(409);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -1631,14 +2313,51 @@
               },
               "status": "Conflict",
               "code": 409,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "78"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"Cannot delete category: it has 1 task type(s). Delete them first.\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Cannot delete category: it has 1 task type(s). Delete them first.\"\n}"
             }
           ]
         },
@@ -1648,12 +2367,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 409\", function () {",
                   "    pm.response.to.have.status(409);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -1690,14 +2410,51 @@
               },
               "status": "Conflict",
               "code": 409,
+              "_postman_previewlanguage": "json",
               "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
                 {
                   "key": "Content-Type",
                   "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "78"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
                 }
               ],
-              "body": "{\n    \"detail\": \"Cannot delete task type: it has 1 resource(s). Delete them first.\"\n}",
-              "_postman_previewlanguage": "json"
+              "cookie": [],
+              "body": "{\n    \"detail\": \"Cannot delete task type: it has 1 resource(s). Delete them first.\"\n}"
             }
           ]
         }
@@ -1712,12 +2469,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 204\", function () {",
                   "    pm.response.to.have.status(204);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -1754,7 +2512,46 @@
               },
               "status": "No Content",
               "code": 204,
-              "header": [],
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
               "body": ""
             }
           ]
@@ -1765,12 +2562,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 204\", function () {",
                   "    pm.response.to.have.status(204);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -1807,7 +2605,46 @@
               },
               "status": "No Content",
               "code": 204,
-              "header": [],
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
               "body": ""
             }
           ]
@@ -1818,12 +2655,13 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 204\", function () {",
                   "    pm.response.to.have.status(204);",
                   "});"
-                ]
+                ],
+                "type": "text/javascript",
+                "packages": {}
               }
             }
           ],
@@ -1860,7 +2698,46 @@
               },
               "status": "No Content",
               "code": 204,
-              "header": [],
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "Date",
+                  "value": "Mon, 19 Oct 2026 09:00:42 GMT"
+                },
+                {
+                  "key": "Server",
+                  "value": "WSGIServer/0.2 CPython/3.14.8"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Accept, Cookie, origin"
+                },
+                {
+                  "key": "Allow",
+                  "value": "GET, PUT, DELETE, HEAD, OPTIONS"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "DENY"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                }
+              ],
+              "cookie": [],
               "body": ""
             }
           ]
