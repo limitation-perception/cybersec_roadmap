@@ -198,3 +198,29 @@ def test_swagger_ui_is_available(api_client):
     response = api_client.get("/api/docs/")
 
     assert response.status_code == 200
+
+
+# ---------- Логування ----------
+
+
+def test_create_category_is_logged(auth_client, user, caplog):
+    response = auth_client.post("/categories", {"name": "Crypto"}, format="json")
+
+    record = next(r for r in caplog.records if r.name == "roadmap.views" and r.levelname == "INFO")
+    assert record.getMessage() == f"Category created: id={response.json()['id']} 'Crypto' by user_id={user.id}"
+
+
+def test_invalid_category_data_logs_field_names_only(auth_client, user, caplog):
+    auth_client.post("/categories", {"name": "x" * 101}, format="json")
+
+    warnings = [r.getMessage() for r in caplog.records if r.name == "roadmap.views" and r.levelname == "WARNING"]
+    assert warnings == [f"Invalid category data from user_id={user.id}: fields ['name']"]
+    assert "x" * 101 not in caplog.text
+
+
+def test_refused_delete_is_logged_as_warning(auth_client, category_with_task_type, caplog):
+    auth_client.delete(f"/categories/{category_with_task_type.id}")
+
+    assert any(
+        r.levelname == "WARNING" and "Category delete refused" in r.getMessage() for r in caplog.records
+    )

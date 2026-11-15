@@ -1,3 +1,5 @@
+import logging
+
 from django.db.models import ProtectedError
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -8,6 +10,17 @@ from rest_framework.views import APIView
 from .models import Category, Resource, TaskType
 from .schema import NO_CONTENT, UNAUTHORIZED, conflict, id_parameter, not_found, validation_error
 from .serializers import CategorySerializer, ResourceSerializer, TaskTypeSerializer
+
+logger = logging.getLogger(__name__)
+
+
+def invalid_data(serializer, request, label):
+    """400 з помилками по полях. У лог — лише назви полів, без значень: там можуть бути чутливі дані."""
+    logger.warning("Invalid %s data from user_id=%s: fields %s", label, request.user.id, sorted(serializer.errors))
+    return Response(
+        {"detail": "Invalid data.", "errors": serializer.errors},
+        status=status.HTTP_400_BAD_REQUEST,
+    )
 
 # Приклади для документації категорій.
 CATEGORY_REQUEST = OpenApiExample(
@@ -40,6 +53,7 @@ class CategoryListView(APIView):
     def get(self, request):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
+        logger.debug("Returned %d categories", len(serializer.data))
         return Response(serializer.data)
 
     @extend_schema(
@@ -57,11 +71,9 @@ class CategoryListView(APIView):
     def post(self, request):
         serializer = CategorySerializer(data=request.data)
         if not serializer.is_valid():
-            return Response(
-                {"detail": "Invalid data.", "errors": serializer.errors},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        serializer.save()
+            return invalid_data(serializer, request, "category")
+        saved = serializer.save()
+        logger.info("Category created: id=%s %r by user_id=%s", saved.id, str(saved), request.user.id)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -104,11 +116,9 @@ class CategoryDetailView(APIView):
         category = get_object_or_404(Category, pk=pk)
         serializer = CategorySerializer(category, data=request.data)
         if not serializer.is_valid():
-            return Response(
-                {"detail": "Invalid data.", "errors": serializer.errors},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        serializer.save()
+            return invalid_data(serializer, request, "category")
+        saved = serializer.save()
+        logger.info("Category updated: id=%s %r by user_id=%s", saved.id, str(saved), request.user.id)
         return Response(serializer.data)
 
     @extend_schema(
@@ -131,10 +141,15 @@ class CategoryDetailView(APIView):
         try:
             category.delete()
         except ProtectedError as e:
+            logger.warning(
+                "Category delete refused: id=%s has %d task type(s) (user_id=%s)",
+                pk, len(e.protected_objects), request.user.id,
+            )
             return Response(
                 {"detail": f"Cannot delete category: it has {len(e.protected_objects)} task type(s). Delete them first."},
                 status=status.HTTP_409_CONFLICT,
             )
+        logger.info("Category deleted: id=%s %r by user_id=%s", pk, str(category), request.user.id)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -170,6 +185,7 @@ class TaskTypeListView(APIView):
     def get(self, request):
         task_types = TaskType.objects.all()
         serializer = TaskTypeSerializer(task_types, many=True)
+        logger.debug("Returned %d task types", len(serializer.data))
         return Response(serializer.data)
 
     @extend_schema(
@@ -185,11 +201,9 @@ class TaskTypeListView(APIView):
     def post(self, request):
         serializer = TaskTypeSerializer(data=request.data)
         if not serializer.is_valid():
-            return Response(
-                {"detail": "Invalid data.", "errors": serializer.errors},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        serializer.save()
+            return invalid_data(serializer, request, "task type")
+        saved = serializer.save()
+        logger.info("Task type created: id=%s %r by user_id=%s", saved.id, str(saved), request.user.id)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -222,11 +236,9 @@ class TaskTypeDetailView(APIView):
         task_type = get_object_or_404(TaskType, pk=pk)
         serializer = TaskTypeSerializer(task_type, data=request.data)
         if not serializer.is_valid():
-            return Response(
-                {"detail": "Invalid data.", "errors": serializer.errors},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        serializer.save()
+            return invalid_data(serializer, request, "task type")
+        saved = serializer.save()
+        logger.info("Task type updated: id=%s %r by user_id=%s", saved.id, str(saved), request.user.id)
         return Response(serializer.data)
 
     @extend_schema(
@@ -248,10 +260,15 @@ class TaskTypeDetailView(APIView):
         try:
             task_type.delete()
         except ProtectedError as e:
+            logger.warning(
+                "Task type delete refused: id=%s has %d resource(s) (user_id=%s)",
+                pk, len(e.protected_objects), request.user.id,
+            )
             return Response(
                 {"detail": f"Cannot delete task type: it has {len(e.protected_objects)} resource(s). Delete them first."},
                 status=status.HTTP_409_CONFLICT,
             )
+        logger.info("Task type deleted: id=%s %r by user_id=%s", pk, str(task_type), request.user.id)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
@@ -274,6 +291,7 @@ class ResourceListView(APIView):
     def get(self, request):
         resources = Resource.objects.all()
         serializer = ResourceSerializer(resources, many=True)
+        logger.debug("Returned %d resources", len(serializer.data))
         return Response(serializer.data)
 
     @extend_schema(
@@ -289,11 +307,9 @@ class ResourceListView(APIView):
     def post(self, request):
         serializer = ResourceSerializer(data=request.data)
         if not serializer.is_valid():
-            return Response(
-                {"detail": "Invalid data.", "errors": serializer.errors},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        serializer.save()
+            return invalid_data(serializer, request, "resource")
+        saved = serializer.save()
+        logger.info("Resource created: id=%s %r by user_id=%s", saved.id, str(saved), request.user.id)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -326,11 +342,9 @@ class ResourceDetailView(APIView):
         resource = get_object_or_404(Resource, pk=pk)
         serializer = ResourceSerializer(resource, data=request.data)
         if not serializer.is_valid():
-            return Response(
-                {"detail": "Invalid data.", "errors": serializer.errors},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        serializer.save()
+            return invalid_data(serializer, request, "resource")
+        saved = serializer.save()
+        logger.info("Resource updated: id=%s %r by user_id=%s", saved.id, str(saved), request.user.id)
         return Response(serializer.data)
 
     @extend_schema(
@@ -342,4 +356,5 @@ class ResourceDetailView(APIView):
     def delete(self, request, pk):
         resource = get_object_or_404(Resource, pk=pk)
         resource.delete()
+        logger.info("Resource deleted: id=%s %r by user_id=%s", pk, str(resource), request.user.id)
         return Response(status=status.HTTP_204_NO_CONTENT)

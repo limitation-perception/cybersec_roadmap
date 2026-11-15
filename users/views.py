@@ -1,4 +1,7 @@
+import logging
+
 from rest_framework import status
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
@@ -9,6 +12,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from roadmap.schema import AuthErrorSerializer, DetailSerializer, validation_error
 from .serializers import RegisterSerializer
+
+logger = logging.getLogger(__name__)
 
 
 class RegisterView(APIView):
@@ -68,11 +73,14 @@ class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if not serializer.is_valid():
+            # Лише назви полів: значення (пароль, email) у лог не пишемо.
+            logger.warning("Registration rejected: invalid fields %s", sorted(serializer.errors))
             return Response(
                 {"detail": "Invalid data.", "errors": serializer.errors},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        serializer.save()
+        user = serializer.save()
+        logger.info("User registered: id=%s username=%r", user.id, user.username)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
@@ -106,7 +114,19 @@ REFRESH = "eyJhbGciOiJIUzI1NiIs..."
     },
 )
 class LoginView(TokenObtainPairView):
-    pass
+    # Пароль і видані токени в лог не потрапляють — лише username і результат.
+    def post(self, request, *args, **kwargs):
+        username = request.data.get("username")
+        try:
+            response = super().post(request, *args, **kwargs)
+        except AuthenticationFailed:
+            logger.warning("Failed login: username=%r", username)
+            raise
+        except ValidationError:
+            logger.warning("Login rejected: username or password not provided")
+            raise
+        logger.info("User logged in: username=%r", username)
+        return response
 
 
 @extend_schema(
@@ -124,4 +144,15 @@ class LoginView(TokenObtainPairView):
     },
 )
 class RefreshView(TokenRefreshView):
-    pass
+    # Сам токен у лог не пишемо — лише факт оновлення чи відмови.
+    def post(self, request, *args, **kwargs):
+        try:
+            response = super().post(request, *args, **kwargs)
+        except AuthenticationFailed:
+            logger.warning("Token refresh failed: refresh token is invalid or expired")
+            raise
+        except ValidationError:
+            logger.warning("Token refresh rejected: refresh token not provided")
+            raise
+        logger.debug("Access token refreshed")
+        return response

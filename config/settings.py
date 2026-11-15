@@ -74,6 +74,53 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
+# Логування: консоль (термінал з runserver) і файл logs/app.log.
+# Код проєкту (roadmap, users) пише DEBUG у консоль лише в режимі розробки; у файл — від INFO.
+# Django — лише WARNING і вище: відповіді 4xx (django.request) і помилки 5xx з traceback,
+# плюс рядки доступу runserver (django.server).
+LOGS_DIR = BASE_DIR / "logs"
+LOGS_DIR.mkdir(exist_ok=True)
+
+APP_LOG_LEVEL = "DEBUG" if DEBUG else "INFO"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{asctime} {levelname} {name} {message}",
+            "style": "{",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        "file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": LOGS_DIR / "app.log",
+            "maxBytes": 1_000_000,
+            "backupCount": 3,
+            "encoding": "utf-8",
+            "formatter": "verbose",
+            "level": "INFO",
+        },
+    },
+    "root": {
+        "handlers": ["console", "file"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "django": {"level": "WARNING"},
+        # Рядки доступу runserver ("GET /categories" 200) — лише в консоль: метод, шлях і статус, без тіла й заголовків.
+        "django.server": {"handlers": ["console"], "level": "INFO", "propagate": False},
+        "roadmap": {"level": APP_LOG_LEVEL},
+        "users": {"level": APP_LOG_LEVEL},
+    },
+}
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
