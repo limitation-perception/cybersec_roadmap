@@ -10,7 +10,7 @@ from roadmap.models import Category, TaskType
 
 @pytest.fixture
 def api_client():
-    """Клієнт без токена — неавторизований користувач."""
+    """ unauthorized user """
     return APIClient()
 
 
@@ -21,7 +21,7 @@ def user(db):
 
 @pytest.fixture
 def auth_client(user):
-    """Клієнт із валідним access токеном користувача."""
+    """ valid access token"""
     client = APIClient()
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {AccessToken.for_user(user)}")
     return client
@@ -29,7 +29,6 @@ def auth_client(user):
 
 @pytest.fixture
 def expired_token_client(user):
-    """Клієнт із простроченим access токеном."""
     token = AccessToken.for_user(user)
     token.set_exp(lifetime=-timedelta(seconds=1))
     client = APIClient()
@@ -44,6 +43,5 @@ def category(db):
 
 @pytest.fixture
 def category_with_task_type(category):
-    """Категорія, до якої прив'язаний тип завдання: видалити її не можна."""
     TaskType.objects.create(category=category, name="SQL Injection")
     return category
