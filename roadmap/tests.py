@@ -172,3 +172,29 @@ def test_delete_category_with_task_types_returns_409(auth_client, category_with_
     assert response.status_code == 409
     assert response.json()["detail"] == "Cannot delete category: it has 1 task type(s). Delete them first."
     assert Category.objects.filter(id=category_with_task_type.id).exists()
+
+
+# ---------- OpenAPI-документація ----------
+
+
+def test_openapi_schema_is_available(api_client):
+    response = api_client.get("/api/schema/", HTTP_ACCEPT="application/vnd.oai.openapi+json")
+
+    assert response.status_code == 200
+    paths = response.json()["paths"]
+    assert {"get", "post"} <= paths["/categories"].keys()
+    assert {"get", "put", "delete"} <= paths["/categories/{id}"].keys()
+
+
+def test_openapi_schema_marks_only_write_methods_as_protected(api_client):
+    paths = api_client.get("/api/schema/", HTTP_ACCEPT="application/vnd.oai.openapi+json").json()["paths"]
+
+    assert "security" not in paths["/categories"]["get"]
+    assert paths["/categories"]["post"]["security"] == [{"jwtAuth": []}]
+    assert paths["/categories/{id}"]["delete"]["security"] == [{"jwtAuth": []}]
+
+
+def test_swagger_ui_is_available(api_client):
+    response = api_client.get("/api/docs/")
+
+    assert response.status_code == 200

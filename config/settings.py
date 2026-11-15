@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'roadmap',
     'corsheaders',
-    'users'
+    'users',
+    'drf_spectacular',
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
@@ -54,6 +55,18 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
             "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "cyberoad API",
+    "DESCRIPTION": (
+        "Roadmap для підготовки до CTF: категорії, типи завдань і матеріали (статті та відео).\n\n"
+        "Переглядати дані можуть усі. Додавати, редагувати й видаляти — лише авторизовані користувачі: "
+        "отримайте токен через `POST /auth/login`, натисніть **Authorize** і вставте `access` токен."
+    ),
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
 SIMPLE_JWT = {
