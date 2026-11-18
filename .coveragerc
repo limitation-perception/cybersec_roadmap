@@ -1,0 +1,5 @@
+[run]
+source = config, roadmap, users
+omit =
+    */migrations/*
+    */tests.py
