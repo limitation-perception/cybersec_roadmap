@@ -56,7 +56,7 @@ API буде доступне за адресою http://127.0.0.1:8000.
 Конфіденційні дані й налаштування, що залежать від середовища, не зберігаються в коді. Django читає їх зі змінних середовища або з файлу `.env` у корені проєкту за допомогою бібліотеки [python-decouple](https://github.com/HBNetwork/python-decouple) (див. [config/settings.py](config/settings.py)).
 
 - **`.env`** — ваші справжні значення. Файл додано в `.gitignore`, тому він ніколи не потрапляє в git. Не надсилайте його нікому.
-- **[.env.example](.env.example)** — шаблон із переліком усіх змінних і заглушками замість секретів. Він лежить у репозиторії, щоб було видно, що треба налаштувати.
+- **[.env.example](.env.example)** — шаблон: усі змінні із заглушками замість секретів, без пояснень (пояснення — у таблиці нижче). Він лежить у репозиторії, щоб було видно, що треба налаштувати.
 
 | Змінна | Обов'язкова | Що означає | Приклад для локальної розробки |
 |---|---|---|---|
@@ -88,16 +88,16 @@ decouple.UndefinedValueError: SECRET_KEY not found. Declare it as envvar or defi
 
 ### Що задокументовано
 
-Усі ендпоінти: автентифікація (`/auth/...`), категорії, типи завдань і ресурси. Для кожного вказано:
+Усі ендпоінти: автентифікація (`/auth/...`), категорії, типи завдань і ресурси. Тексти в Swagger — англійською і стислі. Для кожного ендпоінта вказано:
 
-- опис, HTTP-метод і параметри шляху (`id`);
+- коротку назву (`List categories`, `Create category`, `Log in`…), HTTP-метод і параметри шляху (`id`);
 - структуру тіла запиту й відповіді;
 - можливі статуси (`200`, `201`, `204`, `400`, `401`, `404`, `409`) з форматом помилок;
 - чи потрібен токен: ендпоінти, що потребують автентифікації, позначені замком.
 
 Найдетальніше описані **категорії** (ресурс, покритий тестами) і `/auth/register`, `/auth/login`, `/auth/refresh`: для них є приклади запитів і кожної відповіді, включно з помилками.
 
-Описи форматів помилок і спільні відповіді (`401`, `404`, `409`) лежать у [roadmap/schema.py](roadmap/schema.py), опис кожного ендпоінта — у декораторах `@extend_schema` над методами у [roadmap/views.py](roadmap/views.py) і [users/views.py](users/views.py).
+Формати помилок і спільні відповіді (`401`, `404`, `409`) описані в [roadmap/schema.py](roadmap/schema.py), кожен ендпоінт — у декораторі `@extend_schema` над методом у [roadmap/views.py](roadmap/views.py) і [users/views.py](users/views.py).
 
 ### Як надсилати запити зі Swagger UI
 
@@ -255,6 +255,17 @@ pytest -k delete
 ## Автентифікація (JWT)
 
 Автентифікація зроблена на JSON Web Token через бібліотеку [djangorestframework-simplejwt](https://django-rest-framework-simplejwt.readthedocs.io/). Код лежить в окремому застосунку `users`.
+
+### Де що в коді
+
+| Файл | Що в ньому |
+|---|---|
+| [users/serializers.py](users/serializers.py) | `RegisterSerializer`: валідація реєстрації і створення користувача через `create_user` (хешує пароль) |
+| [users/views.py](users/views.py) | `RegisterView` — реєстрація; `LoginView` і `RefreshView` — готові `TokenObtainPairView` і `TokenRefreshView` з simplejwt, доповнені описом для Swagger і логуванням |
+| [users/urls.py](users/urls.py) | маршрути `auth/register`, `auth/login`, `auth/refresh` |
+| [config/settings.py](config/settings.py) | `JWTAuthentication` як спосіб автентифікації, `IsAuthenticatedOrReadOnly` як правило доступу, час життя токенів у `SIMPLE_JWT` |
+
+Власної моделі користувача немає: використовується вбудована модель Django `User`.
 
 ### Як передавати токен
 

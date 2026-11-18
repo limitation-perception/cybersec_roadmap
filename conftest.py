@@ -10,7 +10,6 @@ from roadmap.models import Category, TaskType
 
 @pytest.fixture
 def api_client():
-    """ unauthorized user """
     return APIClient()
 
 
@@ -21,7 +20,6 @@ def user(db):
 
 @pytest.fixture
 def auth_client(user):
-    """ valid access token"""
     client = APIClient()
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {AccessToken.for_user(user)}")
     return client
@@ -38,7 +36,7 @@ def expired_token_client(user):
 
 @pytest.fixture
 def category(db):
-    return Category.objects.create(name="Web", description="Вразливості вебзастосунків")
+    return Category.objects.create(name="Web", description="Web vulnerabilities")
 
 
 @pytest.fixture

@@ -7,15 +7,12 @@ pytestmark = pytest.mark.django_db
 MISSING_ID = 999999
 
 
-# ---------- GET: доступно всім ----------
-
-
 def test_list_categories_as_guest(api_client, category):
     response = api_client.get("/categories")
 
     assert response.status_code == 200
     assert response.json() == [
-        {"id": category.id, "name": "Web", "description": "Вразливості вебзастосунків"},
+        {"id": category.id, "name": "Web", "description": "Web vulnerabilities"},
     ]
 
 
@@ -46,11 +43,8 @@ def test_list_task_types_of_category(api_client, category_with_task_type):
     assert [task_type["name"] for task_type in response.json()] == ["SQL Injection"]
 
 
-# ---------- POST: лише авторизовані ----------
-
-
 def test_create_category_authenticated(auth_client):
-    response = auth_client.post("/categories", {"name": "Crypto", "description": "Криптографія"}, format="json")
+    response = auth_client.post("/categories", {"name": "Crypto", "description": "Cryptography"}, format="json")
 
     assert response.status_code == 201
     assert response.json()["name"] == "Crypto"
@@ -86,7 +80,7 @@ def test_create_category_with_expired_token_returns_401(expired_token_client):
 @pytest.mark.parametrize(
     "payload",
     [
-        {"description": "Без назви"},
+        {"description": "No name"},
         {"name": ""},
         {"name": "x" * 101},
     ],
@@ -109,15 +103,12 @@ def test_create_duplicate_category_returns_400(auth_client, category):
     assert Category.objects.count() == 1
 
 
-# ---------- PUT: лише авторизовані ----------
-
-
 def test_update_category_authenticated(auth_client, category):
-    response = auth_client.put(f"/categories/{category.id}", {"name": "Web", "description": "Новий опис"}, format="json")
+    response = auth_client.put(f"/categories/{category.id}", {"name": "Web", "description": "New description"}, format="json")
 
     assert response.status_code == 200
     category.refresh_from_db()
-    assert category.description == "Новий опис"
+    assert category.description == "New description"
 
 
 def test_update_category_as_guest_returns_401(api_client, category):
@@ -141,9 +132,6 @@ def test_update_category_with_invalid_data_returns_400(auth_client, category):
     assert "name" in response.json()["errors"]
     category.refresh_from_db()
     assert category.name == "Web"
-
-
-# ---------- DELETE: лише авторизовані, і лише порожню категорію ----------
 
 
 def test_delete_empty_category(auth_client, category):
@@ -174,9 +162,6 @@ def test_delete_category_with_task_types_returns_409(auth_client, category_with_
     assert Category.objects.filter(id=category_with_task_type.id).exists()
 
 
-# ---------- OpenAPI-документація ----------
-
-
 def test_openapi_schema_is_available(api_client):
     response = api_client.get("/api/schema/", HTTP_ACCEPT="application/vnd.oai.openapi+json")
 
@@ -198,9 +183,6 @@ def test_swagger_ui_is_available(api_client):
     response = api_client.get("/api/docs/")
 
     assert response.status_code == 200
-
-
-# ---------- Логування ----------
 
 
 def test_create_category_is_logged(auth_client, user, caplog):

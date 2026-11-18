@@ -16,9 +16,6 @@ def register(api_client, **overrides):
     return api_client.post("/auth/register", data, format="json")
 
 
-# ---------- Логування: потрібні події записуються, чутливі дані — ні ----------
-
-
 def test_registration_is_logged_without_password(api_client, caplog):
     response = register(api_client)
 

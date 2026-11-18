@@ -15,23 +15,22 @@ logger = logging.getLogger(__name__)
 
 
 def invalid_data(serializer, request, label):
-    """400 з помилками по полях. У лог — лише назви полів, без значень: там можуть бути чутливі дані."""
     logger.warning("Invalid %s data from user_id=%s: fields %s", label, request.user.id, sorted(serializer.errors))
     return Response(
         {"detail": "Invalid data.", "errors": serializer.errors},
         status=status.HTTP_400_BAD_REQUEST,
     )
 
-# Приклади для документації категорій.
+
 CATEGORY_REQUEST = OpenApiExample(
-    "Категорія", value={"name": "Web", "description": "Вразливості вебзастосунків"}, request_only=True
+    "Category", value={"name": "Web", "description": "Web vulnerabilities"}, request_only=True
 )
-CATEGORY_RESPONSE = {"id": 1, "name": "Web", "description": "Вразливості вебзастосунків"}
+CATEGORY_RESPONSE = {"id": 1, "name": "Web", "description": "Web vulnerabilities"}
 CATEGORY_VALIDATION_ERROR = validation_error(
     **{
-        "Без назви": {"name": ["This field is required."]},
-        "Назва вже існує": {"name": ["category with this name already exists."]},
-        "Задовга назва": {"name": ["Ensure this field has no more than 100 characters."]},
+        "Missing name": {"name": ["This field is required."]},
+        "Duplicate name": {"name": ["category with this name already exists."]},
+        "Name too long": {"name": ["Ensure this field has no more than 100 characters."]},
     }
 )
 
@@ -40,13 +39,12 @@ class CategoryListView(APIView):
     @extend_schema(
         tags=["Categories"],
         operation_id="categories_list",
-        summary="Список усіх категорій",
-        description="Доступно всім, токен не потрібен.",
+        summary="List categories",
         auth=[],
         responses={
             200: OpenApiResponse(
                 CategorySerializer(many=True),
-                examples=[OpenApiExample("Список", value=[CATEGORY_RESPONSE, {"id": 2, "name": "Crypto", "description": "Криптографія"}])],
+                examples=[OpenApiExample("List", value=[CATEGORY_RESPONSE, {"id": 2, "name": "Crypto", "description": "Cryptography"}])],
             ),
         },
     )
@@ -58,12 +56,11 @@ class CategoryListView(APIView):
 
     @extend_schema(
         tags=["Categories"],
-        summary="Додати категорію",
-        description="Лише для авторизованих користувачів. Назва унікальна, до 100 символів; опис необов'язковий.",
+        summary="Create category",
         request=CategorySerializer,
         examples=[CATEGORY_REQUEST],
         responses={
-            201: OpenApiResponse(CategorySerializer, description="Категорію створено.", examples=[OpenApiExample("Створено", value=CATEGORY_RESPONSE)]),
+            201: OpenApiResponse(CategorySerializer, examples=[OpenApiExample("Created", value=CATEGORY_RESPONSE)]),
             400: CATEGORY_VALIDATION_ERROR,
             401: UNAUTHORIZED,
         },
@@ -80,12 +77,11 @@ class CategoryListView(APIView):
 class CategoryDetailView(APIView):
     @extend_schema(
         tags=["Categories"],
-        summary="Одна категорія",
-        description="Доступно всім, токен не потрібен.",
+        summary="Get category",
         auth=[],
-        parameters=[id_parameter("категорії")],
+        parameters=[id_parameter("Category")],
         responses={
-            200: OpenApiResponse(CategorySerializer, examples=[OpenApiExample("Категорія", value=CATEGORY_RESPONSE)]),
+            200: OpenApiResponse(CategorySerializer, examples=[OpenApiExample("Category", value=CATEGORY_RESPONSE)]),
             404: not_found("Category"),
         },
     )
@@ -96,16 +92,14 @@ class CategoryDetailView(APIView):
 
     @extend_schema(
         tags=["Categories"],
-        summary="Редагувати категорію",
-        description="Лише для авторизованих користувачів. Потрібно передати всі поля (повна заміна).",
-        parameters=[id_parameter("категорії")],
+        summary="Update category",
+        parameters=[id_parameter("Category")],
         request=CategorySerializer,
-        examples=[OpenApiExample("Новий опис", value={"name": "Web", "description": "Новий опис"}, request_only=True)],
+        examples=[OpenApiExample("New description", value={"name": "Web", "description": "New description"}, request_only=True)],
         responses={
             200: OpenApiResponse(
                 CategorySerializer,
-                description="Категорію оновлено.",
-                examples=[OpenApiExample("Оновлено", value={"id": 1, "name": "Web", "description": "Новий опис"})],
+                examples=[OpenApiExample("Updated", value={"id": 1, "name": "Web", "description": "New description"})],
             ),
             400: CATEGORY_VALIDATION_ERROR,
             401: UNAUTHORIZED,
@@ -123,15 +117,14 @@ class CategoryDetailView(APIView):
 
     @extend_schema(
         tags=["Categories"],
-        summary="Видалити категорію",
-        description="Лише для авторизованих користувачів. Категорію, в якій є типи завдань, видалити не можна: спершу видаліть їх.",
-        parameters=[id_parameter("категорії")],
+        summary="Delete category",
+        parameters=[id_parameter("Category")],
         responses={
             204: NO_CONTENT,
             401: UNAUTHORIZED,
             404: not_found("Category"),
             409: conflict(
-                "У категорії є типи завдань.",
+                "Category has task types.",
                 "Cannot delete category: it has 3 task type(s). Delete them first.",
             ),
         },
@@ -157,17 +150,16 @@ class CategoryTaskTypesView(APIView):
     @extend_schema(
         tags=["Categories"],
         operation_id="categories_task_types_list",
-        summary="Типи завдань однієї категорії",
-        description="Доступно всім, токен не потрібен.",
+        summary="List category task types",
         auth=[],
-        parameters=[id_parameter("категорії")],
+        parameters=[id_parameter("Category")],
         responses={
             200: OpenApiResponse(
                 TaskTypeSerializer(many=True),
                 examples=[
                     OpenApiExample(
-                        "Типи завдань",
-                        value=[{"id": 1, "category": 1, "name": "SQL Injection", "description": "Впровадження SQL-коду в запит"}],
+                        "Task types",
+                        value=[{"id": 1, "category": 1, "name": "SQL Injection", "description": "SQL code injection"}],
                     )
                 ],
             ),
@@ -181,7 +173,7 @@ class CategoryTaskTypesView(APIView):
 
 
 class TaskTypeListView(APIView):
-    @extend_schema(tags=["Task types"], summary="Список усіх типів завдань", auth=[], responses={200: TaskTypeSerializer(many=True)})
+    @extend_schema(tags=["Task types"], summary="List task types", auth=[], responses={200: TaskTypeSerializer(many=True)})
     def get(self, request):
         task_types = TaskType.objects.all()
         serializer = TaskTypeSerializer(task_types, many=True)
@@ -190,11 +182,11 @@ class TaskTypeListView(APIView):
 
     @extend_schema(
         tags=["Task types"],
-        summary="Додати тип завдання в категорію",
+        summary="Create task type",
         request=TaskTypeSerializer,
         responses={
             201: TaskTypeSerializer,
-            400: validation_error(**{"Назва вже є в категорії": {"non_field_errors": ["The fields category, name must make a unique set."]}}),
+            400: validation_error(**{"Duplicate name in category": {"non_field_errors": ["The fields category, name must make a unique set."]}}),
             401: UNAUTHORIZED,
         },
     )
@@ -210,9 +202,9 @@ class TaskTypeListView(APIView):
 class TaskTypeDetailView(APIView):
     @extend_schema(
         tags=["Task types"],
-        summary="Один тип завдання",
+        summary="Get task type",
         auth=[],
-        parameters=[id_parameter("типу завдання")],
+        parameters=[id_parameter("Task type")],
         responses={200: TaskTypeSerializer, 404: not_found("TaskType")},
     )
     def get(self, request, pk):
@@ -222,12 +214,12 @@ class TaskTypeDetailView(APIView):
 
     @extend_schema(
         tags=["Task types"],
-        summary="Редагувати тип завдання",
-        parameters=[id_parameter("типу завдання")],
+        summary="Update task type",
+        parameters=[id_parameter("Task type")],
         request=TaskTypeSerializer,
         responses={
             200: TaskTypeSerializer,
-            400: validation_error(**{"Без назви": {"name": ["This field is required."]}}),
+            400: validation_error(**{"Missing name": {"name": ["This field is required."]}}),
             401: UNAUTHORIZED,
             404: not_found("TaskType"),
         },
@@ -243,14 +235,14 @@ class TaskTypeDetailView(APIView):
 
     @extend_schema(
         tags=["Task types"],
-        summary="Видалити тип завдання",
-        parameters=[id_parameter("типу завдання")],
+        summary="Delete task type",
+        parameters=[id_parameter("Task type")],
         responses={
             204: NO_CONTENT,
             401: UNAUTHORIZED,
             404: not_found("TaskType"),
             409: conflict(
-                "До типу завдання прив'язані ресурси.",
+                "Task type has resources.",
                 "Cannot delete task type: it has 2 resource(s). Delete them first.",
             ),
         },
@@ -275,9 +267,9 @@ class TaskTypeDetailView(APIView):
 class TaskTypeResourcesView(APIView):
     @extend_schema(
         tags=["Task types"],
-        summary="Статті й відео до типу завдання",
+        summary="List task type resources",
         auth=[],
-        parameters=[id_parameter("типу завдання")],
+        parameters=[id_parameter("Task type")],
         responses={200: ResourceSerializer(many=True), 404: not_found("TaskType")},
     )
     def get(self, request, pk):
@@ -287,7 +279,7 @@ class TaskTypeResourcesView(APIView):
 
 
 class ResourceListView(APIView):
-    @extend_schema(tags=["Resources"], summary="Список усіх ресурсів", auth=[], responses={200: ResourceSerializer(many=True)})
+    @extend_schema(tags=["Resources"], summary="List resources", auth=[], responses={200: ResourceSerializer(many=True)})
     def get(self, request):
         resources = Resource.objects.all()
         serializer = ResourceSerializer(resources, many=True)
@@ -296,11 +288,11 @@ class ResourceListView(APIView):
 
     @extend_schema(
         tags=["Resources"],
-        summary="Додати статтю чи відео до типу завдання",
+        summary="Create resource",
         request=ResourceSerializer,
         responses={
             201: ResourceSerializer,
-            400: validation_error(**{"Невалідні url і type": {"url": ["Enter a valid URL."], "type": ['"podcast" is not a valid choice.']}}),
+            400: validation_error(**{"Invalid url and type": {"url": ["Enter a valid URL."], "type": ['"podcast" is not a valid choice.']}}),
             401: UNAUTHORIZED,
         },
     )
@@ -316,9 +308,9 @@ class ResourceListView(APIView):
 class ResourceDetailView(APIView):
     @extend_schema(
         tags=["Resources"],
-        summary="Один ресурс",
+        summary="Get resource",
         auth=[],
-        parameters=[id_parameter("ресурсу")],
+        parameters=[id_parameter("Resource")],
         responses={200: ResourceSerializer, 404: not_found("Resource")},
     )
     def get(self, request, pk):
@@ -328,12 +320,12 @@ class ResourceDetailView(APIView):
 
     @extend_schema(
         tags=["Resources"],
-        summary="Редагувати ресурс",
-        parameters=[id_parameter("ресурсу")],
+        summary="Update resource",
+        parameters=[id_parameter("Resource")],
         request=ResourceSerializer,
         responses={
             200: ResourceSerializer,
-            400: validation_error(**{"Невалідний url": {"url": ["Enter a valid URL."]}}),
+            400: validation_error(**{"Invalid url": {"url": ["Enter a valid URL."]}}),
             401: UNAUTHORIZED,
             404: not_found("Resource"),
         },
@@ -349,8 +341,8 @@ class ResourceDetailView(APIView):
 
     @extend_schema(
         tags=["Resources"],
-        summary="Видалити ресурс",
-        parameters=[id_parameter("ресурсу")],
+        summary="Delete resource",
+        parameters=[id_parameter("Resource")],
         responses={204: NO_CONTENT, 401: UNAUTHORIZED, 404: not_found("Resource")},
     )
     def delete(self, request, pk):
